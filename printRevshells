@@ -10,7 +10,12 @@ turquoiseColour="\e[0;36m\033[1m"
 grayColour="\e[0;37m\033[1m"
 
 ip=$(ifconfig tun0 | grep inet | grep -v inet6 | awk '{print $2}')
-port="9001" 			# Change this to your preferred port
+if [ $# -eq 0 ]
+  then
+	port="9001" 				# This is the default port if no argument is provided. Change this to your favorite port
+else
+	port=$1
+fi
 
 #Bash
 echo -e "${yellowColour}Bash${endColour}"
