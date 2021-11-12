@@ -1,4 +1,4 @@
-##printRevshells
+## printRevshells
 
 ### Purpose
 Got sick of looking for the same payloads every time you want to pop a reverse shell? This simple script will print via the terminal the most common revshell payloads you can find on the web.
