@@ -15,7 +15,7 @@ The script is easily customizable so you can add your own payloads aswell
 
 ### Installation
 ```
-sudo wget https://raw.githubusercontent.com/therodri2/printRevshells/main/printRevshells -O /usr/local/bin/printRevshells
+sudo wget https://raw.githubusercontent.com/shroudri/printRevshells/main/printRevshells -O /usr/local/bin/printRevshells
 sudo chmod +x /usr/local/bin/printRevshells
 username=$(whoami)
 sudo chown $username /usr/local/bin/printRevshells
